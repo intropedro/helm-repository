@@ -1,11 +1,10 @@
-# Default values for transmission.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+
+# Custom values transmission Chart
 
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: linuxserver/transmission
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -25,6 +24,16 @@ serviceAccount:
 
 podAnnotations: {}
 
+env:
+  puid: "1000"
+  pgid: "1000"
+  tz: "Europe/Madrid"
+  user: "admin"
+
+secrets:
+  use: false
+  # name: 
+  # key:
 podSecurityContext: {}
   # fsGroup: 2000
 
@@ -37,24 +46,20 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  ports:
+    ui: 30091
+    tcp: 30413
+    udp: 30413
 
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+volumes:
+  config:
+    useHostPath: true
+    hostPath: "/opt/transmission/config"
+    #usePVC: true
+    #claimName: NAME_PVC
+  downloads: "/opt/transmission/downloads"
+  watch: "/opt/transmission/watch"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -70,13 +75,5 @@ resources: {}
 
 autoscaling:
   enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
-
-tolerations: []
-
-affinity: {}

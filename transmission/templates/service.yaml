@@ -7,9 +7,17 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - protocol: TCP
+      name: transmission-ui
+      port: 9091
+      nodePort: {{ .Values.service.ports.ui }}
+    - protocol: TCP
+      name: transmission-tcp
+      port: 51413
+      nodePort: {{ .Values.service.ports.tcp }}
+    - protocol: UDP
+      name: transmission-udp
+      port: 51413
+      nodePort: {{ .Values.service.ports.udp }}
   selector:
     {{- include "transmission.selectorLabels" . | nindent 4 }}
