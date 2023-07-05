@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  transmission:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-07-05T11:45:29.827074787+02:00"
+    description: A Helm chart for torrent client Transmission
+    digest: 89250a038a0cca6a9ec67bb5d9d059e2070f38c79df64af881e5bf5d8a1686d7
+    icon: https://upload.wikimedia.org/wikipedia/commons/4/46/Transmission_Icon.svg
+    name: transmission
+    type: application
+    urls:
+    - charts/transmission-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-07-05T11:45:29.826521774+02:00"
