@@ -4,12 +4,8 @@ Transmission Chart to Kubernettes
 
 # Instalación
 
-The first is add ther repositorio to helm:
+The first is add ther repositorio to helm. You can see how to do it on the [main page of the repository](../).
 
-```shell
-helm repo add intro https://helm.intropedro.com
-helm repo update
-```
 And now we install it:
 
 ``` shell
